@@ -4,7 +4,8 @@ var express = require('express'),
     morgan  = require('morgan');
     
 Object.assign=require('object-assign')
-
+var UserRouter = require('./routes/UserController')
+var PostRouter = require('./routes/PostController');
 app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'))
 
@@ -99,6 +100,8 @@ initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);
 });
 
+app.use('/user', UserRouter);
+app.use('/post',PostRouter);
 app.listen(port, ip);
 console.log('Server running on http://%s:%s', ip, port);
 
